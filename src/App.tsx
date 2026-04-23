@@ -1,6 +1,6 @@
-import { useState } from "react"; // Fitur React, biar bisa nyimpen data yang berubah ubah 
+import { useState } from "react"; // Library dari React, biar bisa nyimpen data yang berubah ubah 
 
-//
+// deklarasi tipe data yang dipake dalam variabel Plan
 type Plan = {
   text: string;
   done: boolean;
@@ -27,13 +27,27 @@ function App(){
 
   const deleteTask = (index: number) => {
     setPlans(plans.filter((_, i) => i !== index))
+  } 
+
+  const [editingIndex, setEditingIndex] = useState< number |null>(null)
+
+  const [editText, setEditText] = useState("")
+
+  const startEdit = (index: number) => {
+    setEditingIndex(index)
+    setEditText(plans[index].text)
+  }
+
+  const saveEdit = (index: number) => {
+    const updatedPlans= [...plans]
+    updatedPlans[index].text = editText
+    setPlans(updatedPlans)
+    setEditingIndex(null)
+    setEditText("")
   }
 
   //
   const toggleDone = (index: number) => {
-// const (count,setCount) = useState(0)
-// <h1>Hello World
-//<button onClick="useState(count + 1)">Tambah
     const updatedPlans = [...plans];
     updatedPlans[index].done = !updatedPlans[index].done;
     setPlans(updatedPlans);
@@ -41,7 +55,7 @@ function App(){
 
   //
   return(
-    <div className="container">
+    <div className="container"> 
       <h1>My Planning App</h1>
       <div className="input-group">
         <input
@@ -63,14 +77,25 @@ function App(){
               checked={plan.done}
               onChange={() => toggleDone(index)}
             />
-            <span
-              style={{
-                textDecoration: plan.done ? "line-through" : "none"
-              }}
-            >
-              {plan.text} 
-            </span>
-            <button onClick={() => deleteTask(index)}>Hapus</button>
+
+            {editingIndex === index ? (
+              <>
+                <input
+                  type="text"
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                />
+                <button onClick={() => saveEdit(index)}>Simpan</button>
+              </>
+            ) : (
+              <>
+                <span style={{ textDecoration: plan.done ? "line-through" : "none" }}>
+                  {plan.text}
+                </span>
+                <button onClick={() => startEdit(index)}>Edit</button>
+                <button onClick={() => deleteTask(index)}>Hapus</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
@@ -79,10 +104,3 @@ function App(){
 }
 
 export default App;
-
-
-// {plans
-//   .sort((a, b) => Number(a.done) - Number(b.done) )
-//   .map((plan, index) => .sort(a,b) (
-//      
-//    ))}
