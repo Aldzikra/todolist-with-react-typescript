@@ -1,4 +1,5 @@
 import { useState } from "react"; // Library dari React, biar bisa nyimpen data yang berubah ubah 
+import PlanItem from "./PlanItem";
 
 // deklarasi tipe data yang dipake dalam variabel Plan
 type Plan = {
@@ -71,32 +72,18 @@ function App(){
         {plans
           .sort((a,b) => Number(a.done) - Number(b.done))
           .map((plan, index) => (
-          <li key={index}>
-            <input
-              type="checkbox"
-              checked={plan.done}
-              onChange={() => toggleDone(index)}
-            />
-
-            {editingIndex === index ? (
-              <>
-                <input
-                  type="text"
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
-                />
-                <button onClick={() => saveEdit(index)}>Simpan</button>
-              </>
-            ) : (
-              <>
-                <span style={{ textDecoration: plan.done ? "line-through" : "none" }}>
-                  {plan.text}
-                </span>
-                <button onClick={() => startEdit(index)}>Edit</button>
-                <button onClick={() => deleteTask(index)}>Hapus</button>
-              </>
-            )}
-          </li>
+          <PlanItem
+            key={index}
+            plan={plan}
+            index={index}
+            editingIndex={editingIndex}
+            editText={editText}
+            setEditText={setEditText}
+            toggleDone={toggleDone}
+            startEdit={startEdit}
+            saveEdit={saveEdit}
+            deleteTask={deleteTask}
+          />
         ))}
       </ul>
     </div>
