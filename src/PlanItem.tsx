@@ -18,7 +18,6 @@ type PlanItemProps = {
 
 function PlanItem({ plan, index, editingIndex, editText, setEditText, toggleDone, startEdit, saveEdit, deleteTask }: PlanItemProps) {
     return (
-        // todo application logic here
         <li key={index}>
         <input
             type="checkbox"
@@ -33,15 +32,15 @@ function PlanItem({ plan, index, editingIndex, editText, setEditText, toggleDone
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
             />
-            <button onClick={() => saveEdit(index)}>Simpan</button>
+            <button className="btn-save" onClick={() => saveEdit(index)}>Simpan</button>
             </>
         ) : (
             <>
             <span style={{ textDecoration: plan.done ? "line-through" : "none" }}>
                 {plan.text}
             </span>
-            <button onClick={() => startEdit(index)}>Edit</button>
-            <button onClick={() => deleteTask(index)}>Hapus</button>
+            <button className="btn-edit"onClick={() => startEdit(index)}>Edit</button>
+            <button className="btn-del"onClick={() => deleteTask(index)}>Hapus</button>
             </>
         )}
         </li>

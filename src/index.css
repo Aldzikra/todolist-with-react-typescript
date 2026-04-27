@@ -1,14 +1,25 @@
+:root {
+  --primary: #185FA5;
+  --background: #F5F7FA;
+  --surface: #FFFFFF;
+  --text-primary: #1A1A2E;
+  --text-secondary: #6B7280;
+  --danger: #E24B4A;
+  --success: #3B6D11;
+  --warning: #BA7517;
+}
+
 body {
+  background: var(--background);
   margin: 0;
-  font-family: var(--heading);
   font-size: 20px;
-  background: #ffffff;
 }
 
 .container{
-  max-width: 500px;
+  background: var(--surface);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  max-width: 1200px;
   margin: 50px auto;
-  background: white;
   padding: 20px;  
   border-radius: 8px;
 }
@@ -24,11 +35,50 @@ input {
   padding: 8px;
 }
 
+input[type="checkbox"]{
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
 button {
   padding: 8px 12px;
   cursor: pointer;
 }
 
+.btn-del {
+  background: var(--danger);
+  border: none;
+  border-radius: 4px;
+}
+
+.btn-save{
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 4px; 
+}
+
+.btn-edit {
+  background: var(--warning);
+  border: none;
+  border-radius: 4px;
+}
+
+.btn-add {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px; 
+}
+
+
 li {
+  display: flex;
   margin-bottom: 8px;
+  gap: 8px;
+  align-items: center;
+}
+li span{
+  flex: 1;
 }

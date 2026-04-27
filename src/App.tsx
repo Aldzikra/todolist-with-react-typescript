@@ -9,11 +9,7 @@ type Plan = {
 
 function App(){
   // 
-  const [plans, setPlans] = useState<Plan[]> ([
-    {text: "Belajar React", done: false},
-    {text: "Kerjain Matdas", done: false},
-    {text: "Riset CodeLabs", done: false}
-  ]);
+  const [plans, setPlans] = useState<Plan[]> ([]);
 
   //
   const [input, setInput] = useState("");
@@ -65,7 +61,7 @@ function App(){
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button onClick={addTasks}>Tambah</button>
+        <button className="btn-add" onClick={addTasks}>Tambah</button>
       </div>
       
       <ul>
