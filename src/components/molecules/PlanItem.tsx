@@ -1,3 +1,5 @@
+import Button from "../atoms/Button";
+
 type Plan = {
     text : string;
     done : boolean;
@@ -32,15 +34,28 @@ function PlanItem({ plan, index, editingIndex, editText, setEditText, toggleDone
                 value={editText}    
                 onChange={(e) => setEditText(e.target.value)}
             />
-            <button className="btn-save" onClick={() => saveEdit(index)}>Simpan</button>
+            <Button 
+               label="Simpan"
+               className="btn-save"
+               onClick={() => saveEdit(index)} 
+            />
             </>
         ) : (
             <>
             <span style={{ textDecoration: plan.done ? "line-through" : "none" }}>
                 {plan.text}
             </span>
-            <button className="btn-edit"onClick={() => startEdit(index)}>Edit</button>
-            <button className="btn-del"onClick={() => deleteTask(index)}>Hapus</button>
+            <Button 
+               label="Edit"
+               className="btn-edit"
+               onClick={() => startEdit} 
+            />
+
+            <Button 
+               label="Hapus"
+               className="btn-del"
+               onClick={() => deleteTask} 
+            />
             </>
         )}
         </li>

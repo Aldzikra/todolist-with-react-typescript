@@ -1,5 +1,6 @@
 import { useState } from "react"; // Library dari React, biar bisa nyimpen data yang berubah ubah 
-import PlanItem from "../components/molecules/PlanItem";
+import PlanItem from "../components/molecules/PlanItem";  // implementasi atomic design, import component dari molucules
+import Button from "../components/atoms/Button";
 
 // deklarasi tipe data yang dipake dalam variabel Plan
 type Plan = {
@@ -8,17 +9,19 @@ type Plan = {
 };
 
 function App(){
-  // 
+
+  // Deklarasi useState untuk data plan/task 
   const [plans, setPlans] = useState<Plan[]> ([]);
 
-  //
+  // Deklarasi useState untuk variabel inputan berupa string
   const [input, setInput] = useState("");
-  // inisialisasi variabel untuk status task
 
+  // inisialisasi variabel untuk status task
   const totalTask = plans.length
   const taskSelesai = plans.filter((plan) => plan.done === true).length
   const taskBelum = plans.filter((plan) => plan.done === false).length
-  //
+  
+  // fungsi menambahkan task
   const addTasks = () => {
     if (input.trim() == "") return;
 
@@ -26,19 +29,24 @@ function App(){
     setInput("");
   };
 
+  // fungsi menghapus task, menggunakan parameter index sebagai penanda task yang akan dihapus 
   const deleteTask = (index: number) => {
     setPlans(plans.filter((_, i) => i !== index))
   } 
 
+  //  menyimpan indeks task yang sedang diedit
   const [editingIndex, setEditingIndex] = useState< number |null>(null)
 
+  // inisialisasi tipe data yang akan digunakan untuk fungsi mengedit task
   const [editText, setEditText] = useState("")
 
+  // fungsi mengedit task yang sudah ditambahkan
   const startEdit = (index: number) => {
     setEditingIndex(index)
     setEditText(plans[index].text)
   }
-
+ 
+  // fungsi menyimpan task 
   const saveEdit = (index: number) => {
     const updatedPlans= [...plans]
     updatedPlans[index].text = editText
@@ -47,16 +55,15 @@ function App(){
     setEditText("")
   }
 
-  //
+  // fungsi mengupdate task berdasarkan task yang selesai
   const toggleDone = (index: number) => {
     const updatedPlans = [...plans];
     updatedPlans[index].done = !updatedPlans[index].done;
     setPlans(updatedPlans);
   };
 
-  //
   return(
-    <div className="container">
+    <div className="container"> 
       <h1>My Planning App</h1>
       <div className="stat-cards">
         <div className="stat-card">  
@@ -79,7 +86,11 @@ function App(){
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button className="btn-add" onClick={addTasks}>Tambah</button>
+        <Button
+          label="Tambah"
+          className="btn-add"
+          onClick={addTasks}
+        />
       </div>
       
       <ul>
