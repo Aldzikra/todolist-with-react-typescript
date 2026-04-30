@@ -1,5 +1,5 @@
 import { useState } from "react"; // Library dari React, biar bisa nyimpen data yang berubah ubah 
-import PlanItem from "./PlanItem";
+import PlanItem from "../components/molecules/PlanItem";
 
 // deklarasi tipe data yang dipake dalam variabel Plan
 type Plan = {
@@ -59,7 +59,7 @@ function App(){
     <div className="container">
       <h1>My Planning App</h1>
       <div className="stat-cards">
-        <div className="stat-card">
+        <div className="stat-card">  
           <p className="stat-label">Total</p>
           <p className="stat-number">{totalTask}</p>
         </div>
