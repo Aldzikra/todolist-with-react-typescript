@@ -13,7 +13,11 @@ function App(){
 
   //
   const [input, setInput] = useState("");
+  // inisialisasi variabel untuk status task
 
+  const totalTask = plans.length
+  const taskSelesai = plans.filter((plan) => plan.done === true).length
+  const taskBelum = plans.filter((plan) => plan.done === false).length
   //
   const addTasks = () => {
     if (input.trim() == "") return;
@@ -52,8 +56,22 @@ function App(){
 
   //
   return(
-    <div className="container"> 
+    <div className="container">
       <h1>My Planning App</h1>
+      <div className="stat-cards">
+        <div className="stat-card">
+          <p className="stat-label">Total</p>
+          <p className="stat-number">{totalTask}</p>
+        </div>
+        <div className="stat-card">
+          <p className="stat-label">Belum</p>
+          <p className="stat-number">{taskBelum}</p>
+        </div>
+        <div className="stat-card">
+          <p className="stat-label">Selesai</p>
+          <p className="stat-number">{taskSelesai}</p>
+        </div>
+      </div>
       <div className="input-group">
         <input
           type="text"

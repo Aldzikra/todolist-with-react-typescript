@@ -29,7 +29,7 @@ function PlanItem({ plan, index, editingIndex, editText, setEditText, toggleDone
             <>
             <input
                 type="text"
-                value={editText}
+                value={editText}    
                 onChange={(e) => setEditText(e.target.value)}
             />
             <button className="btn-save" onClick={() => saveEdit(index)}>Simpan</button>
