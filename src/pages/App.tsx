@@ -1,4 +1,4 @@
-import { useState } from "react"; // Library dari React, biar bisa nyimpen data yang berubah ubah 
+import { useState, useEffect } from "react"; // Library dari React, biar bisa nyimpen data yang berubah ubah 
 import PlanItem from "../components/molecules/PlanItem";  // implementasi atomic design, import component dari molucules
 import Button from "../components/atoms/Button";
 
@@ -10,8 +10,11 @@ type Plan = {
 
 function App(){
 
-  // Deklarasi useState untuk data plan/task 
-  const [plans, setPlans] = useState<Plan[]> ([]);
+  // Deklarasi useState untuk data plan/task   
+  const [plans, setPlans] = useState<Plan[]>(() => {
+    const saved = localStorage.getItem("plans")
+    return saved ? JSON.parse(saved) : []
+  })
 
   // Deklarasi useState untuk variabel inputan berupa string
   const [input, setInput] = useState("");
@@ -62,6 +65,11 @@ function App(){
     setPlans(updatedPlans);
   };
 
+  // menyimpan data task 
+  useEffect(() => {
+      localStorage.setItem("plans", JSON.stringify(plans))
+  }, [plans])
+
   return(
     <div className="container"> 
       <h1>My Planning App</h1>
@@ -94,7 +102,10 @@ function App(){
       </div>
       
       <ul>
-        {plans
+        {plans.length === 0 ? (
+          <p>Belum ada task, Tambahkan Sekarang</p>
+        ) : (
+          plans
           .sort((a,b) => Number(a.done) - Number(b.done))
           .map((plan, index) => (
           <PlanItem
@@ -109,7 +120,8 @@ function App(){
             saveEdit={saveEdit}
             deleteTask={deleteTask}
           />
-        ))}
+        ))
+      )} 
       </ul>
     </div>
   )

@@ -1,4 +1,4 @@
-import Button from "../atoms/Button";
+import Button from "../atoms/Button";  // implementasi atomic design, memanggil props button 
 
 type Plan = {
     text : string;
@@ -18,6 +18,7 @@ type PlanItemProps = {
     deleteTask: (index: number) => void;   // function
 };
 
+// implementasi props di react typescript, mengambil tipe data dan fungsi untuk dijadikan parameter di function PlanItem 
 function PlanItem({ plan, index, editingIndex, editText, setEditText, toggleDone, startEdit, saveEdit, deleteTask }: PlanItemProps) {
     return (
         <li key={index}>
@@ -45,16 +46,18 @@ function PlanItem({ plan, index, editingIndex, editText, setEditText, toggleDone
             <span style={{ textDecoration: plan.done ? "line-through" : "none" }}>
                 {plan.text}
             </span>
+
+            {/* pemanggilan props button edit */}
             <Button 
                label="Edit"
                className="btn-edit"
-               onClick={() => startEdit} 
+               onClick={() => startEdit(index)} 
             />
-
+            {/* pemanggilan props button hapus */}
             <Button 
                label="Hapus"
                className="btn-del"
-               onClick={() => deleteTask} 
+               onClick={() => deleteTask(index)} 
             />
             </>
         )}
